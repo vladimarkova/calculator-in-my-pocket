@@ -13,7 +13,7 @@
     border-radius: 5px;
     min-width: 260px;
     min-height: 310px;
-    border: 2px solid $medium-gray;
+    border: 2px solid $white;
 
     .display {
       text-align: end;
@@ -55,19 +55,19 @@
 }
 
 .b-t {
-  border-top: 2px solid $medium-gray;
+  border-top: 2px solid $white;
 }
 
 .b-r {
-  border-right: 2px solid $medium-gray;
+  border-right: 2px solid $white;
 }
 
 .b-b {
-  border-bottom: 2px solid $medium-gray;
+  border-bottom: 2px solid $white;
 }
 
 .b-l {
-  border-left: 2px solid $medium-gray;
+  border-left: 2px solid $white;
 }
 
 .b-r-for-spacer {
