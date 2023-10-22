@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'src/variables';
+@import 'src/fonts.scss';
+
+@font-face {
+  font-family: 'SometypeMono';
+  src: url('assets/fonts/Sometype_Mono/SometypeMono-Regular.ttf') format('truetype'); /* Add the .ttf format */
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: 'SometypeMono', sans-serif;
+}
+
+button {
+  font-family: 'SometypeMono', sans-serif;
+}
