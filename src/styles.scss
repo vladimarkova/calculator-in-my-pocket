@@ -9,4 +9,13 @@ body {
 button {
   font-family: 'SometypeMono', sans-serif;
   border: none;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.94;
+  }
+}
+
+i {
+  color: $app-green;
 }
