@@ -1,4 +1,4 @@
-<button [style.borderRadius]="borderRadius" class="d-flex align-items-center app-button">
-  <i class="material-icons mr-5 fs-16" *ngIf="icon">favorite</i>
+<button [style.borderRadius]="borderRadius" class="d-flex align-items-center hover app-button" [style.fontSize]="textSizeInRem">
+  <i class="material-icons mr-5" *ngIf="icon" [style.fontSize]="iconSizeInPx">favorite</i>
   {{ text }}
 </button>

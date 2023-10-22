@@ -17,11 +17,36 @@
   align-items: center;
 }
 
+.jc-sp-btw {
+  justify-content: space-between;
+}
+
+.hover {
+  &:hover {
+    cursor: pointer;
+    opacity: 0.94;
+  }
+}
+
 /** margins **/
 .mr-5 {
   margin-right: 5px;
 }
 
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mr-16 {
+  margin-right: 16px;
+}
+
+
+/** font-sizes **/
 .fs-16 {
   font-size: 16px;
+}
+
+.fs-1-5 {
+  font-size: 1.5rem;
 }
