@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'calculator-in-my-pocket';
+  mainPageText: string = 'Hello and welcome!';
 }

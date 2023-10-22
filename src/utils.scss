@@ -1,0 +1,27 @@
+/** reusable css classes **/
+
+.d-flex {
+  display: flex;
+}
+
+.d-flex-column {
+  display: flex;
+  direction: column;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+/** margins **/
+.mr-5 {
+  margin-right: 5px;
+}
+
+.fs-16 {
+  font-size: 16px;
+}
