@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -12,4 +12,9 @@ export class ButtonComponent {
   @Input() textSizeInRem: string = '1rem';
 
   @Input() borderRadius: string = '5px';
+  @Output() buttonClickedEvent: EventEmitter<void> = new EventEmitter();
+
+  buttonClickedHandler() {
+    this.buttonClickedEvent.emit();
+  }
 }

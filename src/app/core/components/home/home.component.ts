@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,4 +8,10 @@ import { Component, Input } from '@angular/core';
 })
 export class HomeComponent {
   @Input() text: string = 'Hello and welcome!';
+
+  constructor(private router: Router) { }
+
+  navigateToCalculator() {
+    this.router.navigate(['/calculator']);
+  }
 }
