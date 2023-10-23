@@ -19,7 +19,7 @@ export class CalculatorComponent {
     if (!this.memory) {
       return 0;
     }
-    return this.memory[2] || this.memory[0];
+    return this.memory[2] ? (+this.memory[2]) : +this.memory[0];
   }
 
   symbolType = SymbolType;
@@ -118,5 +118,4 @@ export class CalculatorComponent {
 
     this.memory = [result.toString()];
   }
-
 }
