@@ -19,7 +19,7 @@ export class CalculatorComponent {
     if (!this.memory) {
       return 0;
     }
-    return this.memory[2] || this.memory[1] || this.memory[0];
+    return this.memory[2] || this.memory[0];
   }
 
   symbolType = SymbolType;
@@ -39,6 +39,10 @@ export class CalculatorComponent {
       this.memory = [value];
       return;
     }
+    if (this.memory[2] && type === SymbolType.OPERATION) {
+      this.calculate();
+      this.memory[1] = value;
+    }
     if (!this.memoryIncludesOperation()) {
       if (type === SymbolType.OPERATION) {
         this.memory[1] = value;
@@ -52,8 +56,7 @@ export class CalculatorComponent {
         if (value !== '=') {
           this.memory[1] = value;
         }
-        const result = this.calculate();
-        this.memory = [result.toString()];
+        this.calculate();
       }
     }
   }
@@ -84,8 +87,9 @@ export class CalculatorComponent {
 
   calculate() {
     if (!this.memory || !this.memory?.[0] || !this.memory?.[1] || !this.memory?.[2]) {
-      return 0;
+      return;
     }
+    let result: number | string = 0;
     const left = +this.memory[0];
     const right = +this.memory[2];
 
@@ -93,21 +97,26 @@ export class CalculatorComponent {
 
     if (op === '/') {
       if (right !== 0) {
-        return left / right;
+        result = left / right;
       }
-      return 'NaN';
+      result = 'NaN';
     }
 
     switch (op) {
       case '+':
-        return left + right
+        result = left + right;
+        break;
       case '-':
-        return left - right
+        result = left - right;
+        break;
       case '*':
-        return left * right
+        result = left * right;
+        break;
       default:
-        return 0;
+        result = 0;
     }
+
+    this.memory = [result.toString()];
   }
 
 }
