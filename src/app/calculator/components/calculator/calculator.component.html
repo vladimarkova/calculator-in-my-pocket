@@ -1,37 +1,35 @@
 <div class="calculator-wrapper">
   <div class="main">
-    <div class="display b-b">0</div>
+    <div class="display b-b">{{ result }}</div>
     <div class="symbols-and-actions">
       <div class="first-row b-b">
-        <div class="regular-cell b-r hover clear">C</div>
+        <div class="regular-cell b-r hover clear" (click)="handleButtonClick({ type: symbolType.CLEAR, value: 'C' })">C</div>
         <div class="regular-cell b-r-for-spacer"></div>
         <div class="regular-cell b-r"></div>
-        <div class="regular-cell hover highlight flex-custom">/</div>
+        <div class="regular-cell hover highlight flex-custom" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '/' })">/</div>
       </div>
-      <!-- <div class="second-row"> -->
-        <div class="digits-and-action b-b">
-          <div class="regular-cell b-r hover">7</div>
-          <div class="regular-cell b-r hover">8</div>
-          <div class="regular-cell b-r hover">9</div>
-          <div class="regular-cell hover highlight">*</div>
-        </div>
-        <div class="digits-and-action b-b">
-          <div class="regular-cell b-r hover">4</div>
-          <div class="regular-cell b-r hover">5</div>
-          <div class="regular-cell b-r hover">6</div>
-          <div class="regular-cell highlight hover">-</div>
-        </div>
-        <div class="digits-and-action b-b">
-          <div class="regular-cell b-r hover">1</div>
-          <div class="regular-cell b-r hover">2</div>
-          <div class="regular-cell b-r hover">3</div>
-          <div class="regular-cell highlight hover">+</div>
-        </div>
-      <!-- </div> -->
+      <div class="digits-and-action b-b">
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '7' })">7</div>
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '8' })">8</div>
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '9' })">9</div>
+        <div class="regular-cell hover highlight" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '*' })">*</div>
+      </div>
+      <div class="digits-and-action b-b">
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '4' })">4</div>
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '5' })">5</div>
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '6' })">6</div>
+        <div class="regular-cell highlight hover" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '-' })">-</div>
+      </div>
+      <div class="digits-and-action b-b">
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '1' })">1</div>
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '2' })">2</div>
+        <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '3' })">3</div>
+        <div class="regular-cell highlight hover" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '+' })">+</div>
+      </div>
       <div class="third-row">
-        <div class="last-row-cell b-r flex-3 hover">0</div>
-        <div class="last-row-cell b-r flex-1 hover">,</div>
-        <div class="last-row-cell highlight flex-1 hover">=</div>
+        <div class="last-row-cell b-r flex-3 hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '9' })">0</div>
+        <div class="last-row-cell b-r flex-1 hover" (click)="handleButtonClick({ type: symbolType.DECIMAL_POINT, value: ',' })">,</div>
+        <div class="last-row-cell highlight flex-1 hover" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '=' })">=</div>
       </div>
     </div>
   </div>
