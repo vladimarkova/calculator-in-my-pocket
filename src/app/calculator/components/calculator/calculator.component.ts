@@ -19,7 +19,17 @@ export class CalculatorComponent {
     if (!this.memory) {
       return 0;
     }
-    return this.memory[2] ? (+this.memory[2]) : +this.memory[0];
+    if (this.memory.find(el => el === 'NaN')) {
+      return 'NaN';
+    }
+    // TODO: use pipe in html
+    if (this.memory[0].endsWith('.')) {
+      return this.memory[0].replace('.', ',');
+    }
+    if (this.memory[2]?.endsWith('.')) {
+      return this.memory[2].replace('.', ',');
+    }
+    return this.memory[2] ? parseFloat(this.memory[2]).toString().replace('.', ',') : parseFloat(this.memory[0]).toString().replace('.', ',');
   }
 
   symbolType = SymbolType;
@@ -44,6 +54,7 @@ export class CalculatorComponent {
       if (value !== '=') {
         this.memory[1] = value;
       }
+      return;
     }
     if (!this.memoryIncludesOperation()) {
       if (type === SymbolType.OPERATION) {
@@ -68,6 +79,7 @@ export class CalculatorComponent {
   }
 
   addDigitToMemory(digit: string, side: string) {
+    // , (decimal point) also is added here
     if (!this.memory) {
       this.memory = [digit];
     }
@@ -92,8 +104,8 @@ export class CalculatorComponent {
       return;
     }
     let result: number | string = 0;
-    const left = +this.memory[0];
-    const right = +this.memory[2];
+    const left = parseFloat(this.memory[0]);
+    const right = parseFloat(this.memory[2]);
 
     const op = this.memory[1];
 
