@@ -12,7 +12,6 @@
     color: $white;
     border-radius: 5px;
     min-width: 260px;
-    min-height: 310px;
     border: 2px solid $white;
 
     .display {
@@ -20,7 +19,8 @@
       padding-right: 10px;
       padding-bottom: 5px;
       padding-top: 26px;
-      font-size: 3rem;
+      line-height: 1;
+      height: 50px;
     }
 
     .regular-cell {
@@ -41,6 +41,18 @@
     .first-row {
       display: flex;
       justify-content: space-between;
+
+      .back-arrow-wrapper {
+        padding: 12px 15px 12px 15px;
+        flex: 3;
+        border-right: 2px solid $white;
+        text-align: end;
+        color: $app-main-color-light;
+
+        &:hover {
+          color: $white;
+        }
+      }
     }
 
     .digits-and-action {
@@ -68,10 +80,6 @@
 
 .b-l {
   border-left: 2px solid $white;
-}
-
-.b-r-for-spacer {
-  border-right: 2px solid $app-main-color;
 }
 
 .clear {
