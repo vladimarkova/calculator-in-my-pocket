@@ -41,7 +41,9 @@ export class CalculatorComponent {
     }
     if (this.memory[2] && type === SymbolType.OPERATION) {
       this.calculate();
-      this.memory[1] = value;
+      if (value !== '=') {
+        this.memory[1] = value;
+      }
     }
     if (!this.memoryIncludesOperation()) {
       if (type === SymbolType.OPERATION) {
@@ -98,8 +100,9 @@ export class CalculatorComponent {
     if (op === '/') {
       if (right !== 0) {
         result = left / right;
+      } else {
+        result = 'NaN';
       }
-      result = 'NaN';
     }
 
     switch (op) {
@@ -112,8 +115,6 @@ export class CalculatorComponent {
       case '*':
         result = left * right;
         break;
-      default:
-        result = 0;
     }
 
     this.memory = [result.toString()];
