@@ -1,11 +1,11 @@
 test: {{ memory | json }}
 <div class="calculator-wrapper">
   <div class="main">
-    <div class="display b-b" [style.fontSize]="result.length > 8 ? smallFont : largeFont">{{ result }}</div>
+    <div class="display b-b" [style.fontSize]="result.length > 8 ? smallFont : largeFont">{{ result | cutNNumbersAfterSymbolFromString:charactersToCutAfterDecimal:'.' }}</div>
     <div class="symbols-and-actions">
       <div class="first-row b-b">
         <div class="regular-cell b-r hover clear" (click)="handleButtonClick({ type: symbolType.CLEAR, value: 'C' })">C</div>
-        <div class="back-arrow-wrapper hover" (click)="undoLast()">BACK</div>
+        <div class="back-arrow-wrapper hover" (click)="undoLast()">{{ isUndoImplemented ? 'BACK' : '' }}</div>
         <div class="regular-cell hover highlight flex-custom" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '/' })">/</div>
       </div>
       <div class="digits-and-action b-b">

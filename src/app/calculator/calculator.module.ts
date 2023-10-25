@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { SharedModule } from '../shared/shared.module';
+
 import { CalculatorComponent } from './components/calculator/calculator.component';
 import { CalculatorRouterModule } from './calculator-routing.module';
 
@@ -14,6 +16,7 @@ import { CalculatorRouterModule } from './calculator-routing.module';
   imports: [
     CommonModule,
     RouterModule,
+    SharedModule,
     CalculatorRouterModule,
   ]
 })

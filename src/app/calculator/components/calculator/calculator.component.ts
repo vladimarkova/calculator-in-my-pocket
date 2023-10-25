@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SymbolType } from '../../enums';
 
-const operations = ['+', '-', '*', '/', '='];
+const OPERATIONS = ['+', '-', '*', '/', '='];
 
 export interface IInputType {
   type: SymbolType,
@@ -18,6 +18,10 @@ export class CalculatorComponent {
   largeFont: string = '3rem';
   smallFont = '1.5rem';
 
+  isUndoImplemented: boolean = false;
+
+  charactersToCutAfterDecimal = 15;
+
   get result() {
     if (!this.memory) {
       return '0';
@@ -25,27 +29,12 @@ export class CalculatorComponent {
     if (this.memory.find(el => el === 'NaN')) {
       return 'NaN';
     }
-    // TODO: use pipe in htmls
-
-    return this.memory[2] ?
-      this.cutString(this.memory[2], '.').replace('.', ','):
-      this.cutString(this.memory[0], '.').replace('.', ',');
+    return this.memory[2] ? this.memory[2]: this.memory[0];
   }
 
   symbolType = SymbolType;
 
   constructor() { }
-
-  cutString(value: string, specificSymbol: string) {
-    const index = value.indexOf(specificSymbol);
-
-    if (index !== -1) {
-      const result = value.substring(index - 15, index + 16);
-      return result;
-    } else {
-      return value;
-    }
-  }
 
   handleButtonClick(input: IInputType) {
     const { type, value } = input;
@@ -98,7 +87,7 @@ export class CalculatorComponent {
   }
 
   memoryIncludesOperation() {
-    return this.memory?.find(el => operations.includes(el));
+    return this.memory?.find(el => OPERATIONS.includes(el));
   }
 
   addDigitToMemory(digit: string, side: string) {
