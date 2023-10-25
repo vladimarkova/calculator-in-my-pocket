@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { Store } from '@ngrx/store';
+import { loadThemes } from 'src/app/+store/actions/theme';
+import { selectThemes, selectThemesError, selectThemesLoading } from 'src/app/+store/selectors/theme';
 import { SymbolType } from '../../enums';
 
 const OPERATIONS = ['+', '-', '*', '/', '='];
@@ -35,11 +37,14 @@ export class CalculatorComponent implements OnInit {
 
   symbolType = SymbolType;
 
-  constructor(private themeService: ThemeService) { }
+  themes$ = this.themeStore.select(selectThemes);
+  loading$ = this.themeStore.select(selectThemesLoading);
+  error$ = this.themeStore.select(selectThemesError);
+
+  constructor(private themeStore: Store) { }
 
   ngOnInit(): void {
-    const themes = this.themeService.loadThemes();
-    console.log('themes: ', themes);
+    this.themeStore.dispatch(loadThemes());
   }
 
   handleButtonClick(input: IInputType) {

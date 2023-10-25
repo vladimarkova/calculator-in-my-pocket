@@ -15,7 +15,7 @@ const exportedComponents = [HomeComponent, HeaderComponent];
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule,
+    SharedModule
   ],
   exports: [...exportedComponents]
 })

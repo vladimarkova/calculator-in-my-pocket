@@ -1,4 +1,7 @@
 test: {{ memory | json }}
+loading: {{ loading$ | async }}
+themes: {{ themes$ | async | json }}
+error: {{ error$ | async }}
 <div class="calculator-wrapper">
   <div class="main">
     <div class="display b-b" [style.fontSize]="result.length > 8 ? smallFont : largeFont">{{ result | cutNNumbersAfterSymbolFromString:charactersToCutAfterDecimal:'.' }}</div>
