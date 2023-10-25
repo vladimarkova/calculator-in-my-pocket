@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'src/app/core/services/theme.service';
 import { SymbolType } from '../../enums';
 
 const OPERATIONS = ['+', '-', '*', '/', '='];
@@ -12,7 +13,7 @@ export interface IInputType {
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss']
 })
-export class CalculatorComponent {
+export class CalculatorComponent implements OnInit {
   memory: string[] | null = null;
 
   largeFont: string = '3rem';
@@ -34,7 +35,12 @@ export class CalculatorComponent {
 
   symbolType = SymbolType;
 
-  constructor() { }
+  constructor(private themeService: ThemeService) { }
+
+  ngOnInit(): void {
+    const themes = this.themeService.loadThemes();
+    console.log('themes: ', themes);
+  }
 
   handleButtonClick(input: IInputType) {
     const { type, value } = input;
