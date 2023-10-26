@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { of, take } from 'rxjs';
 
 const mockThemes = [
   { id: '1',
@@ -17,10 +18,17 @@ const mockThemes = [
   providedIn: 'root'
 })
 export class ThemeService {
+  private backendUrl = 'http://localhost:8080';
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   loadThemes() {
+    const url = `${this.backendUrl}/api/theme`;
+
+    const result = this.httpClient.get<any>(url);
+    result.pipe(take(1)).subscribe(r => {
+      console.log('result: ', result);
+    })
     return of(mockThemes);
   }
 }
