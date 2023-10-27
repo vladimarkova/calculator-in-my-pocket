@@ -1,6 +1,6 @@
 <ng-template #themeSelectListTemplate>
   <ng-container *ngIf="(themes$ | async) as themes">
-    <div *ngIf="themes?.length" class="container">
+    <div *ngIf="themes?.length" class="container" [style.backgroundColor]="dynamicBgColor">
       <div class="close-icon-wrapper hover"  [routerLink]="['/calculator']">
         <i class="material-icons close-icon">clear</i>
       </div>
@@ -8,7 +8,7 @@
         <div class="col">
           <div class="col-content">
             <div class="color-box" [style.backgroundColor]="theme.mainBgColorHex"></div>
-            <span class="title hover" (click)="applyTheme(theme.id)">{{ theme.title }}</span>
+            <span class="title hover" (click)="handleSelectTheme(theme)">{{ theme.title }}</span>
           </div>
         </div>
         <div class="actions">

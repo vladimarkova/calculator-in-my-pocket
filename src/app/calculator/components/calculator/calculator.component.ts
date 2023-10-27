@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { filter, map, take } from 'rxjs';
-import { clearSelectedTheme, deleteTheme, loadThemes, saveTheme, selectTheme } from 'src/app/+store/actions/theme';
-import { selectSelectedTheme, selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
+import { map } from 'rxjs';
+import { Theme } from 'src/app/+store/models/theme';
 import { SymbolType } from '../../enums';
 
 const OPERATIONS = ['+', '-', '*', '/', '='];
@@ -17,7 +15,7 @@ export interface IInputType {
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss']
 })
-export class CalculatorComponent implements OnInit {
+export class CalculatorComponent {
   memory: string[] | null = null;
 
   largeFont: string = '3rem';
@@ -36,40 +34,23 @@ export class CalculatorComponent implements OnInit {
     }
     return this.memory[2] ? this.memory[2]: this.memory[0];
   }
-
   symbolType = SymbolType;
 
   queryParams$ = this.route.queryParams;
   selectThemeListVisible$ = this.queryParams$.pipe(map(params => !params ? false : params?.['select-theme-list'] === "true"));
 
-  // selectedTheme$ = this.themeStore.select(selectSelectedTheme);
-
-  constructor(private themeStore: Store, private route: ActivatedRoute) { }
-
-  ngOnInit(): void {
-    // this.themeStore.dispatch(loadThemes());
-
-    // this.themes$.pipe(filter(v => !!v), take(1)).subscribe(themes => {
-    //   if (themes?.[2]) {
-    //     const updatedTheme = { ...themes[2], title: `${themes[2].title} EDITED` };
-    //     // this.themeStore.dispatch(saveTheme({ theme: updatedTheme }));
-    //     this.themeStore.dispatch(selectTheme({ id: themes[2].id }));
-    //     setTimeout(() => this.themeStore.dispatch(clearSelectedTheme()), 5000);
-    //   }
-    //   // if (themes?.[3]) {
-    //   //   this.themeStore.dispatch(deleteTheme({ id: themes[3].id }));
-    //   // }
-    // })
-
-    // const newTheme = {
-    //   title: 'GreenApple',
-    //   mainBgColorHex: '#eca3cb',
-    //   textColorHex: '#ffffff',
-    //   highlightColorHex: '##003366',
-    //   editable: true
-    // }
-    // this.themeStore.dispatch(saveTheme({ theme: newTheme }));
+  themeToApply: Theme | null = null;
+  get dynamicBgColor(): string {
+    return this.themeToApply?.mainBgColorHex || '#8076a3';
   }
+  get dynamicHighlightColor(): string {
+    return this.themeToApply?.highlightColorHex || '#9bc400';
+  }
+  get dynamicTextColor(): string {
+    return this.themeToApply?.textColorHex || '#ffffff';
+  }
+
+  constructor(private route: ActivatedRoute, private renderer: Renderer2) { }
 
   handleButtonClick(input: IInputType) {
     const { type, value } = input;
@@ -190,5 +171,13 @@ export class CalculatorComponent implements OnInit {
     }
 
     this.memory = [result.toString()];
+  }
+
+  applyTheme({ theme } : { theme: Theme }) {
+    this.themeToApply = { ...theme };
+  }
+
+  setBackgroundColor(element: HTMLElement, color: string) {
+    this.renderer.setStyle(element, 'background-color', color);
   }
 }

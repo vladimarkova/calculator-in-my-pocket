@@ -1,42 +1,62 @@
 <div class="page-wrapper">
   <div class="calculator-and-themes">
     <div class="calculator-wrapper">
-      <div class="main">
-        <div class="display b-b" [style.fontSize]="result.length > 8 ? smallFont : largeFont">{{ result | cutNNumbersAfterSymbolFromString:charactersToCutAfterDecimal:'.' | replaceSymbolWithAnotherSymbol:'.':',' }}</div>
+      <div class="main" [style.backgroundColor]="dynamicBgColor" [style.color]="dynamicTextColor">
+        <div class="display b-b" [style.fontSize]="result.length > 8 ? smallFont : largeFont">{{ result |
+          cutNNumbersAfterSymbolFromString:charactersToCutAfterDecimal:'.' | replaceSymbolWithAnotherSymbol:'.':',' }}
+        </div>
         <div class="symbols-and-actions">
           <div class="first-row b-b">
-            <div class="regular-cell b-r hover clear" (click)="handleButtonClick({ type: symbolType.CLEAR, value: 'C' })">C</div>
+            <div class="regular-cell b-r hover clear"
+              (click)="handleButtonClick({ type: symbolType.CLEAR, value: 'C' })">C</div>
             <div class="back-arrow-wrapper hover" (click)="undoLast()">{{ isUndoImplemented ? 'BACK' : '' }}</div>
-            <div class="regular-cell hover highlight flex-custom" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '/' })">/</div>
+            <div class="regular-cell hover flex-custom"
+              [style.backgroundColor]="dynamicHighlightColor"
+              (click)="handleButtonClick({ type: symbolType.OPERATION, value: '/' })">/</div>
           </div>
           <div class="digits-and-action b-b">
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '7' })">7</div>
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '8' })">8</div>
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '9' })">9</div>
-            <div class="regular-cell hover highlight" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '*' })">*</div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '7' })">7
+            </div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '8' })">8
+            </div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '9' })">9
+            </div>
+            <div class="regular-cell hover" [style.backgroundColor]="dynamicHighlightColor"
+              (click)="handleButtonClick({ type: symbolType.OPERATION, value: '*' })">*</div>
           </div>
           <div class="digits-and-action b-b">
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '4' })">4</div>
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '5' })">5</div>
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '6' })">6</div>
-            <div class="regular-cell highlight hover" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '-' })">-</div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '4' })">4
+            </div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '5' })">5
+            </div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '6' })">6
+            </div>
+            <div class="regular-cell hover" [style.backgroundColor]="dynamicHighlightColor"
+              (click)="handleButtonClick({ type: symbolType.OPERATION, value: '-' })">-</div>
           </div>
           <div class="digits-and-action b-b">
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '1' })">1</div>
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '2' })">2</div>
-            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '3' })">3</div>
-            <div class="regular-cell highlight hover" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '+' })">+</div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '1' })">1
+            </div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '2' })">2
+            </div>
+            <div class="regular-cell b-r hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '3' })">3
+            </div>
+            <div class="regular-cell hover" [style.backgroundColor]="dynamicHighlightColor"
+              (click)="handleButtonClick({ type: symbolType.OPERATION, value: '+' })">+</div>
           </div>
           <div class="third-row">
-            <div class="last-row-cell b-r flex-3 hover" (click)="handleButtonClick({ type: symbolType.DIGIT, value: '0' })">0</div>
-            <div class="last-row-cell b-r flex-1 hover" (click)="handleButtonClick({ type: symbolType.DECIMAL_POINT, value: '.' })">,</div>
-            <div class="last-row-cell highlight flex-1 hover" (click)="handleButtonClick({ type: symbolType.OPERATION, value: '=' })">=</div>
+            <div class="last-row-cell b-r flex-3 hover"
+              (click)="handleButtonClick({ type: symbolType.DIGIT, value: '0' })">0</div>
+            <div class="last-row-cell b-r flex-1 hover"
+              (click)="handleButtonClick({ type: symbolType.DECIMAL_POINT, value: '.' })">,</div>
+            <div class="last-row-cell flex-1 hover" [style.backgroundColor]="dynamicHighlightColor"
+              (click)="handleButtonClick({ type: symbolType.OPERATION, value: '=' })">=</div>
           </div>
         </div>
       </div>
     </div>
     <ng-container *ngIf="(selectThemeListVisible$ | async)">
-      <app-theme-select-list class="select-theme-list"></app-theme-select-list>
+      <app-theme-select-list class="select-theme-list" (applyThemeEvent)="applyTheme($event)"></app-theme-select-list>
     </ng-container>
   </div>
 </div>

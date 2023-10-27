@@ -14,9 +14,7 @@
       align-items: center;
 
       .main {
-        background-color: $app-main-color;
         padding-top: 10px;
-        color: $white;
         border-radius: 5px;
         min-width: 260px;
         border: 2px solid $white;
@@ -97,10 +95,6 @@
 
 .clear {
   background-color: $app-main-color-light;
-}
-
-.highlight {
-  background-color: $app-green;
 }
 
 .flex-3 {

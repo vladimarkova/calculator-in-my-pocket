@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest, filter, Subscription, take } from 'rxjs';
-import { clearSelectedTheme, loadThemes, selectTheme } from 'src/app/+store/actions/theme';
+import { combineLatest, Subscription } from 'rxjs';
+import { loadThemes, selectTheme } from 'src/app/+store/actions/theme';
+import { Theme } from 'src/app/+store/models/theme';
 import { selectSelectedTheme, selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
 
 @Component({
@@ -19,6 +20,10 @@ export class ThemeSelectListComponent implements OnInit, OnDestroy {
   selectedTheme$ = this.themeStore.select(selectSelectedTheme);
   sub!: Subscription;
 
+  dynamicBgColor: string = '#8076a3';
+
+  @Output() applyThemeEvent = new EventEmitter<{ theme: Theme }>();
+
   constructor(private themeStore: Store, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -30,15 +35,17 @@ export class ThemeSelectListComponent implements OnInit, OnDestroy {
         this.router.navigate([], {relativeTo: this.activatedRoute});
       } else {
         if (themes) {
-          this.applyTheme(themes[0].id);
+          this.handleSelectTheme(themes[0]);
         }
       }
     })
   }
 
-  applyTheme(id: string){
-    this.themeStore.dispatch(selectTheme({ id }));
-    this.addThemeIdToParams(id);
+  handleSelectTheme(theme: Theme){
+    this.themeStore.dispatch(selectTheme({ id: theme.id }));
+    this.addThemeIdToParams(theme.id);
+    this.applyThemeEvent.emit({ theme });
+    this.dynamicBgColor = theme.mainBgColorHex;
   }
 
   addThemeIdToParams(id: string) {
