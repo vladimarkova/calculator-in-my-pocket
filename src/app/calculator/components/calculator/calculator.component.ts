@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter, take } from 'rxjs';
-import { loadThemes, saveTheme } from 'src/app/+store/actions/theme';
+import { deleteTheme, loadThemes, saveTheme } from 'src/app/+store/actions/theme';
 import { selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
 import { SymbolType } from '../../enums';
 
@@ -49,11 +49,14 @@ export class CalculatorComponent implements OnInit {
     this.themeStore.dispatch(loadThemes());
 
     this.themes$.pipe(filter(v => !!v), take(1)).subscribe(themes => {
-      if (themes && themes[2]) {
+      if (themes?.[2]) {
         console.log(themes[2]);
         const updatedTheme = { ...themes[2], title: `${themes[2].title} EDITED` };
         // this.themeStore.dispatch(saveTheme({ theme: updatedTheme }));
       }
+      // if (themes?.[3]) {
+      //   this.themeStore.dispatch(deleteTheme({ id: themes[3].id }));
+      // }
     })
 
     const newTheme = {
