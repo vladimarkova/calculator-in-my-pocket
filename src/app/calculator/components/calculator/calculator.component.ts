@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadThemes } from 'src/app/+store/actions/theme';
+import { filter, take } from 'rxjs';
+import { loadThemes, saveTheme } from 'src/app/+store/actions/theme';
 import { selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
 import { SymbolType } from '../../enums';
 
@@ -46,6 +47,23 @@ export class CalculatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.themeStore.dispatch(loadThemes());
+
+    this.themes$.pipe(filter(v => !!v), take(1)).subscribe(themes => {
+      if (themes && themes[2]) {
+        console.log(themes[2]);
+        const updatedTheme = { ...themes[2], title: `${themes[2].title} EDITED` };
+        // this.themeStore.dispatch(saveTheme({ theme: updatedTheme }));
+      }
+    })
+
+    const newTheme = {
+      title: 'GreenApple',
+      mainBgColorHex: '#eca3cb',
+      textColorHex: '#ffffff',
+      highlightColorHex: '##003366',
+      editable: true
+    }
+    // this.themeStore.dispatch(saveTheme({ theme: newTheme }));
   }
 
   handleButtonClick(input: IInputType) {
