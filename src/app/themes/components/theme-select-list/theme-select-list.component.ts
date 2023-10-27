@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, Subscription, take } from 'rxjs';
-import { loadThemes, selectTheme } from 'src/app/+store/actions/theme';
+import { combineLatest, filter, Subscription, take } from 'rxjs';
+import { clearSelectedTheme, loadThemes, selectTheme } from 'src/app/+store/actions/theme';
 import { selectSelectedTheme, selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
 
 @Component({
@@ -23,11 +23,15 @@ export class ThemeSelectListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.themeStore.dispatch(loadThemes());
-    this.sub = this.selectedTheme$.subscribe(selectedTheme => {
+    this.sub = combineLatest(([this.themes$, this.selectedTheme$])).subscribe(([themes, selectedTheme]) => {
       const queryParams = this.router.parseUrl(this.router.url).queryParams;
       const id = queryParams['theme']
       if (!selectedTheme && id) {
         this.router.navigate([], {relativeTo: this.activatedRoute});
+      } else {
+        if (themes) {
+          this.applyTheme(themes[0].id);
+        }
       }
     })
   }

@@ -12,14 +12,13 @@
           </div>
         </div>
         <div class="actions">
-          <i class="material-icons delete-red" [ngClass]="{'hover': true}">do_not_disturb_on</i>
+          <i class="material-icons" [ngClass]="{'delete-red': theme.id !== (selectedTheme$ | async)?.id}">{{ theme.id !== (selectedTheme$ | async)?.id ? 'do_not_disturb_on' : 'check_circle' }}</i>
         </div>
       </div>
     </div>
     <div *ngIf="!themes?.length" class="no-themes">No themes available...</div>
   </ng-container>
 </ng-template>
-test: {{ (selectedTheme$ | async)?.id }}
 
 <ng-template #loader>
   Loading...
