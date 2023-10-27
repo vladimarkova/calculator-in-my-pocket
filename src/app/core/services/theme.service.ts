@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { IListResponse } from 'src/app/shared/interfaces';
 import { Theme } from 'src/app/+store/models/theme';
@@ -29,7 +29,19 @@ export class ThemeService {
 
   loadThemes(): Observable<IListResponse<Theme>> {
     const url = `${baseUrl}theme`;
+    let params = new HttpParams().set('limit', 10).append('offset', 0);
+    return this.httpClient.get<IListResponse<Theme>>(url, { params });
+  }
 
-    return this.httpClient.get<IListResponse<Theme>>(url);
+  createTheme(theme: Partial<Theme>): Observable<Theme> {
+    return this.httpClient.post<Theme>('theme', theme);
+  }
+
+  editTheme(theme: Theme): Observable<Theme> {
+    return this.httpClient.put<Theme>(`theme/${theme.id}`, theme);
+  }
+
+  deleteTheme(id: string): Observable<Theme> {
+    return this.httpClient.delete<Theme>(`theme/${id}`);
   }
 }

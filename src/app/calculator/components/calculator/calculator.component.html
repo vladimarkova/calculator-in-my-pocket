@@ -6,7 +6,7 @@ totalCount: {{ totalCount$ | async }}
 error: {{ error$ | async }}
 <div class="calculator-wrapper">
   <div class="main">
-    <div class="display b-b" [style.fontSize]="result.length > 8 ? smallFont : largeFont">{{ result | cutNNumbersAfterSymbolFromString:charactersToCutAfterDecimal:'.' }}</div>
+    <div class="display b-b" [style.fontSize]="result.length > 8 ? smallFont : largeFont">{{ result | cutNNumbersAfterSymbolFromString:charactersToCutAfterDecimal:'.' | replaceSymbolWithAnotherSymbol:'.':',' }}</div>
     <div class="symbols-and-actions">
       <div class="first-row b-b">
         <div class="regular-cell b-r hover clear" (click)="handleButtonClick({ type: symbolType.CLEAR, value: 'C' })">C</div>
