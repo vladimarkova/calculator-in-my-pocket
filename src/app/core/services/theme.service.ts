@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { of, take } from 'rxjs';
+import { Observable } from 'rxjs';
+import { IListResponse } from 'src/app/shared/interfaces';
+import { Theme } from 'src/app/+store/models/theme';
+import { environment } from 'src/environments/environment';
+
+const baseUrl = environment.url;
 
 const mockThemes = [
   { id: '1',
@@ -14,21 +19,17 @@ const mockThemes = [
     highlightColorHex: '##31a617',
   }
 ];
+
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private backendUrl = 'http://localhost:8080';
 
   constructor(private httpClient: HttpClient) { }
 
-  loadThemes() {
-    const url = `${this.backendUrl}/api/theme`;
+  loadThemes(): Observable<IListResponse<Theme>> {
+    const url = `${baseUrl}theme`;
 
-    const result = this.httpClient.get<any>(url);
-    result.pipe(take(1)).subscribe(r => {
-      console.log('result: ', result);
-    })
-    return of(mockThemes);
+    return this.httpClient.get<IListResponse<Theme>>(url);
   }
 }

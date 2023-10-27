@@ -4,12 +4,14 @@ import * as themeActions from '../actions/theme';
 
 export interface ThemeState {
   themes: Theme[] | null;
+  totalCount: number;
   loading: boolean;
   error: any;
 }
 
 const initialState: ThemeState = {
   themes: null,
+  totalCount: 0,
   loading: false,
   error: null,
 };
@@ -30,7 +32,9 @@ export const themeReducer = createReducer(
     ...state,
     loading: false,
     error,
-  }))
+  })),
+
+  on(themeActions.clearThemes, () => ({ ...initialState }))
 );
 
 export function reducer(state: ThemeState | undefined, action: Action) {

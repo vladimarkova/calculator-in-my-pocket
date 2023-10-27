@@ -1,6 +1,8 @@
 test: {{ memory | json }}
+
 loading: {{ loading$ | async }}
 themes: {{ themes$ | async | json }}
+totalCount: {{ totalCount$ | async }}
 error: {{ error$ | async }}
 <div class="calculator-wrapper">
   <div class="main">

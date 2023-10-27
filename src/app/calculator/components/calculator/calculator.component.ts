@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadThemes } from 'src/app/+store/actions/theme';
-import { selectThemes, selectThemesError, selectThemesLoading } from 'src/app/+store/selectors/theme';
+import { selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
 import { SymbolType } from '../../enums';
 
 const OPERATIONS = ['+', '-', '*', '/', '='];
@@ -38,6 +38,7 @@ export class CalculatorComponent implements OnInit {
   symbolType = SymbolType;
 
   themes$ = this.themeStore.select(selectThemes);
+  totalCount$ = this.themeStore.select(selectTotalCount);
   loading$ = this.themeStore.select(selectThemesLoading);
   error$ = this.themeStore.select(selectThemesError);
 
