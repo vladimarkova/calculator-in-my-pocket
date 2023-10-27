@@ -2,24 +2,24 @@
   <ng-container *ngIf="(themes$ | async) as themes">
     <div *ngIf="themes?.length" class="container">
       <div class="close-icon-wrapper hover"  [routerLink]="['/calculator']">
-        <i class="material-icons close-icon">close</i>
+        <i class="material-icons close-icon">clear</i>
       </div>
       <div class="row" *ngFor="let theme of themes">
         <div class="col">
           <div class="col-content">
             <div class="color-box" [style.backgroundColor]="theme.mainBgColorHex"></div>
-            <span>{{ theme.title }}</span>
+            <span class="title hover" (click)="applyTheme(theme.id)">{{ theme.title }}</span>
           </div>
         </div>
         <div class="actions">
-          <i class="material-icons hover mr-12">edit</i>
-          <i class="material-icons delete-red hover">delete</i>
+          <i class="material-icons delete-red" [ngClass]="{'hover': true}">do_not_disturb_on</i>
         </div>
       </div>
     </div>
     <div *ngIf="!themes?.length" class="no-themes">No themes available...</div>
   </ng-container>
 </ng-template>
+test: {{ (selectedTheme$ | async)?.id }}
 
 <ng-template #loader>
   Loading...
