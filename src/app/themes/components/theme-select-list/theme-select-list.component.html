@@ -1,7 +1,7 @@
 <ng-template #themeSelectListTemplate>
   <ng-container *ngIf="(themes$ | async) as themes">
     <div *ngIf="themes?.length" class="container" [style.backgroundColor]="dynamicBgColor">
-      <div class="close-icon-wrapper hover"  [routerLink]="['/calculator']">
+      <div class="close-icon-wrapper hover" (click)="handleCloseThemeSelection()">
         <i class="material-icons close-icon">clear</i>
       </div>
       <div class="row" *ngFor="let theme of themes">

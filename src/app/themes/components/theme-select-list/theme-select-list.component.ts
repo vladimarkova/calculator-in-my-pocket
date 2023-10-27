@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest, Subscription } from 'rxjs';
+import { combineLatest, filter, Subscription, take } from 'rxjs';
 import { loadThemes, selectTheme } from 'src/app/+store/actions/theme';
 import { Theme } from 'src/app/+store/models/theme';
 import { selectSelectedTheme, selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
@@ -56,6 +56,15 @@ export class ThemeSelectListComponent implements OnInit, OnDestroy {
       relativeTo: this.activatedRoute,
       queryParams: queryParams,
     });
+  }
+
+  handleCloseThemeSelection() {
+    this.themes$.pipe(filter(v => !!v), take(1)).subscribe(themes => {
+      if (themes) {
+        this.handleSelectTheme(themes[0]);
+      }
+    })
+    this.router.navigate(['/calculator']);
   }
 
   ngOnDestroy(): void {
