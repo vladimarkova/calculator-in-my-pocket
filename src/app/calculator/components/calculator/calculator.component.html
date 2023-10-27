@@ -4,6 +4,8 @@ loading: {{ loading$ | async }}
 themes: {{ themes$ | async | json }}
 totalCount: {{ totalCount$ | async }}
 error: {{ error$ | async }}
+
+selected theme: {{ selectedTheme$ | async | json }}
 <div class="calculator-wrapper">
   <div class="main">
     <div class="display b-b" [style.fontSize]="result.length > 8 ? smallFont : largeFont">{{ result | cutNNumbersAfterSymbolFromString:charactersToCutAfterDecimal:'.' | replaceSymbolWithAnotherSymbol:'.':',' }}</div>

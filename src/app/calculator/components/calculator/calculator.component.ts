@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter, take } from 'rxjs';
-import { deleteTheme, loadThemes, saveTheme } from 'src/app/+store/actions/theme';
-import { selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
+import { clearSelectedTheme, deleteTheme, loadThemes, saveTheme, selectTheme } from 'src/app/+store/actions/theme';
+import { selectSelectedTheme, selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
 import { SymbolType } from '../../enums';
 
 const OPERATIONS = ['+', '-', '*', '/', '='];
@@ -43,6 +43,8 @@ export class CalculatorComponent implements OnInit {
   loading$ = this.themeStore.select(selectThemesLoading);
   error$ = this.themeStore.select(selectThemesError);
 
+  selectedTheme$ = this.themeStore.select(selectSelectedTheme);
+
   constructor(private themeStore: Store) { }
 
   ngOnInit(): void {
@@ -53,10 +55,12 @@ export class CalculatorComponent implements OnInit {
         console.log(themes[2]);
         const updatedTheme = { ...themes[2], title: `${themes[2].title} EDITED` };
         // this.themeStore.dispatch(saveTheme({ theme: updatedTheme }));
+        this.themeStore.dispatch(selectTheme({ id: themes[2].id }));
+        setTimeout(() => this.themeStore.dispatch(clearSelectedTheme()), 5000);
       }
-      // if (themes?.[3]) {
-      //   this.themeStore.dispatch(deleteTheme({ id: themes[3].id }));
-      // }
+      if (themes?.[3]) {
+        // this.themeStore.dispatch(deleteTheme({ id: themes[3].id }));
+      }
     })
 
     const newTheme = {
