@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
+import { ThemesModule } from '../themes/themes.module';
 
 import { CalculatorComponent } from './components/calculator/calculator.component';
 import { CalculatorRouterModule } from './calculator-routing.module';
@@ -19,6 +20,7 @@ import { CalculatorRouterModule } from './calculator-routing.module';
     RouterModule,
     CoreModule,
     SharedModule,
+    ThemesModule,
     CalculatorRouterModule,
   ]
 })

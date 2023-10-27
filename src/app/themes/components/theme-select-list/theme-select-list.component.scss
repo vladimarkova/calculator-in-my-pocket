@@ -1,0 +1,65 @@
+@import 'src/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: $app-main-color;
+  color: $white;
+  padding: 10px;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+
+    .col {
+      padding: 5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+
+      .col-content {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        &:first-child {
+          display: flex;
+          .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            border: 2px solid $black;
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+
+    .actions {
+      padding: 5px;
+      display: flex;
+    }
+  }
+
+  .close-icon-wrapper {
+    align-self: flex-end;
+    display: flex;
+    margin-bottom: 12px;
+    border: 1px solid $app-main-color;
+    border-radius: 5px;
+
+    .close-icon {
+      color: $delete-red;
+    }
+
+    &:hover {
+      border: 1px solid $white;
+    }
+  }
+}
+
+.delete-red {
+  color: $delete-red !important;
+}

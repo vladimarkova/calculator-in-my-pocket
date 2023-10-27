@@ -1,67 +1,80 @@
 @import 'src/variables';
 
-.calculator-wrapper {
+.page-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 10%;
+  justify-content: center;
+  padding-top: 8%;
 
-  .main {
-    background-color: $app-main-color;
-    padding-top: 10px;
-    color: $white;
-    border-radius: 5px;
-    min-width: 260px;
-    border: 2px solid $white;
+  .calculator-and-themes {
+    display: flex;
 
-    .display {
-      text-align: end;
-      padding-right: 10px;
-      padding-bottom: 5px;
-      padding-top: 26px;
-      line-height: 1;
-      height: 50px;
-    }
-
-    .regular-cell {
-      padding: 12px 15px 12px 15px;
-      font-size: 1.2rem;
-      flex: 1;
-    }
-
-    .last-row-cell {
-      padding: 12px 15px 16px 15px;
-      font-size: 1.2rem;
-    }
-
-    .div-spacer {
-      padding: 12px 17px 12px 17px;
-    }
-
-    .first-row {
+    .calculator-wrapper {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
 
-      .back-arrow-wrapper {
-        padding: 12px 15px 12px 15px;
-        flex: 3;
-        border-right: 2px solid $white;
-        text-align: end;
-        color: $app-main-color-light;
+      .main {
+        background-color: $app-main-color;
+        padding-top: 10px;
+        color: $white;
+        border-radius: 5px;
+        min-width: 260px;
+        border: 2px solid $white;
 
-        &:hover {
-          color: $white;
+        .display {
+          text-align: end;
+          padding-right: 10px;
+          padding-bottom: 5px;
+          padding-top: 26px;
+          line-height: 1;
+          height: 50px;
+        }
+
+        .regular-cell {
+          padding: 12px 15px 12px 15px;
+          font-size: 1.2rem;
+          flex: 1;
+        }
+
+        .last-row-cell {
+          padding: 12px 15px 16px 15px;
+          font-size: 1.2rem;
+        }
+
+        .div-spacer {
+          padding: 12px 17px 12px 17px;
+        }
+
+        .first-row {
+          display: flex;
+          justify-content: space-between;
+
+          .back-arrow-wrapper {
+            padding: 12px 15px 12px 15px;
+            flex: 3;
+            border-right: 2px solid $white;
+            text-align: end;
+            color: $app-main-color-light;
+
+            &:hover {
+              color: $white;
+            }
+          }
+        }
+
+        .digits-and-action {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .third-row {
+          display: flex;
         }
       }
     }
 
-    .digits-and-action {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .third-row {
-      display: flex;
+    .select-theme-list {
+      margin-left: 50px;
     }
   }
 }

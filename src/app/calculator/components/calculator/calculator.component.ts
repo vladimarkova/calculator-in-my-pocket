@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, take } from 'rxjs';
+import { filter, map, take } from 'rxjs';
 import { clearSelectedTheme, deleteTheme, loadThemes, saveTheme, selectTheme } from 'src/app/+store/actions/theme';
 import { selectSelectedTheme, selectThemes, selectThemesError, selectThemesLoading, selectTotalCount } from 'src/app/+store/selectors/theme';
 import { SymbolType } from '../../enums';
@@ -38,38 +39,35 @@ export class CalculatorComponent implements OnInit {
 
   symbolType = SymbolType;
 
-  themes$ = this.themeStore.select(selectThemes);
-  totalCount$ = this.themeStore.select(selectTotalCount);
-  loading$ = this.themeStore.select(selectThemesLoading);
-  error$ = this.themeStore.select(selectThemesError);
+  queryParams$ = this.route.queryParams;
+  selectThemeListVisible$ = this.queryParams$.pipe(map(params => !params ? false : params?.['select-theme-list'] === "true"));
 
-  selectedTheme$ = this.themeStore.select(selectSelectedTheme);
+  // selectedTheme$ = this.themeStore.select(selectSelectedTheme);
 
-  constructor(private themeStore: Store) { }
+  constructor(private themeStore: Store, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.themeStore.dispatch(loadThemes());
+    // this.themeStore.dispatch(loadThemes());
 
-    this.themes$.pipe(filter(v => !!v), take(1)).subscribe(themes => {
-      if (themes?.[2]) {
-        console.log(themes[2]);
-        const updatedTheme = { ...themes[2], title: `${themes[2].title} EDITED` };
-        // this.themeStore.dispatch(saveTheme({ theme: updatedTheme }));
-        this.themeStore.dispatch(selectTheme({ id: themes[2].id }));
-        setTimeout(() => this.themeStore.dispatch(clearSelectedTheme()), 5000);
-      }
-      if (themes?.[3]) {
-        // this.themeStore.dispatch(deleteTheme({ id: themes[3].id }));
-      }
-    })
+    // this.themes$.pipe(filter(v => !!v), take(1)).subscribe(themes => {
+    //   if (themes?.[2]) {
+    //     const updatedTheme = { ...themes[2], title: `${themes[2].title} EDITED` };
+    //     // this.themeStore.dispatch(saveTheme({ theme: updatedTheme }));
+    //     this.themeStore.dispatch(selectTheme({ id: themes[2].id }));
+    //     setTimeout(() => this.themeStore.dispatch(clearSelectedTheme()), 5000);
+    //   }
+    //   // if (themes?.[3]) {
+    //   //   this.themeStore.dispatch(deleteTheme({ id: themes[3].id }));
+    //   // }
+    // })
 
-    const newTheme = {
-      title: 'GreenApple',
-      mainBgColorHex: '#eca3cb',
-      textColorHex: '#ffffff',
-      highlightColorHex: '##003366',
-      editable: true
-    }
+    // const newTheme = {
+    //   title: 'GreenApple',
+    //   mainBgColorHex: '#eca3cb',
+    //   textColorHex: '#ffffff',
+    //   highlightColorHex: '##003366',
+    //   editable: true
+    // }
     // this.themeStore.dispatch(saveTheme({ theme: newTheme }));
   }
 
