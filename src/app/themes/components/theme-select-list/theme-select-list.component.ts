@@ -61,6 +61,7 @@ export class ThemeSelectListComponent implements OnInit, OnDestroy {
   handleCloseThemeSelection() {
     this.themes$.pipe(filter(v => !!v), take(1)).subscribe(themes => {
       if (themes) {
+        // It's intentional
         this.handleSelectTheme(themes[0]);
       }
     })
