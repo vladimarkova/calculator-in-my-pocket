@@ -3,12 +3,12 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.8.
 
 # To run locally, do:
---- Clone the repo (in your terminal run: `git clone https://github.com/vladimarkova/calculator-in-my-pocket.git`)
---- Make sure you have a terminal opened at project's directory (cd calculator-in-my-pocket)
---- Run `npm install`
---- Run `yarn start` or `npm start`
---- In your browser navigate to `http://localhost:4200/`
-(Make sure you have installed: node: `https://nodejs.org/`, angular-cli: `https://angular.io/cli`)
+* Clone the repo (in your terminal run: `git clone https://github.com/vladimarkova/calculator-in-my-pocket.git`)
+* Make sure you have a terminal opened at project's directory (cd calculator-in-my-pocket)
+* Run `npm install`
+* Run `yarn start` or `npm start`
+* In your browser navigate to `http://localhost:4200/`
+* (Make sure you have installed: node: `https://nodejs.org/`, angular-cli: `https://angular.io/cli`)
 
 ## Development server
 
